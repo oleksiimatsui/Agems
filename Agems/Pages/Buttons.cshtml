@@ -1,0 +1,21 @@
+﻿@page
+<body>
+    <div id="container" style="position:absolute; width:30%; height:30%; border: solid;">
+      <button id="win" style="position:absolute; left:50%; top:50%">виграти</button>
+      <button id="lose">програти</button>
+    </div>
+</body>
+<script>
+    var win = document.getElementById("win");
+    var lose = document.getElementById("lose");
+    lose.onclick = function(){
+        alert("Нехай щастить!");
+    };
+    win.onmouseover = function(){
+        win.style.left = Random(0, 100) + "%";
+        win.style.top = Random(0, 100) + "%";
+    };
+    function Random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+</script>
