@@ -1,8 +1,16 @@
 ﻿@page
+<style>
+    #win{
+        position:absolute; left:50%; top:50%
+    }
+    #container{
+        position:absolute; width:30%; height:30%; border: solid;
+    }
+</style>
 <body>
-    <div id="container" style="position:absolute; width:30%; height:30%; border: solid;">
-      <button id="win" style="position:absolute; left:50%; top:50%">виграти</button>
-      <button id="lose">програти</button>
+    <div id="container">
+      <button class="btn btn-primary" id="win">виграти</button>
+      <button class="btn btn-primary" id="lose">програти</button>
     </div>
 </body>
 <script>

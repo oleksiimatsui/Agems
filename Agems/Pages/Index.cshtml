@@ -9,12 +9,13 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div id="accordion" class="container-fluid">
-                Welcome  @Model.Name  !!! <br>
-                <img src = "@Model.Pic">
+                Welcome  @Model.Name  !!! 
+                <img src = "@Model.Pic" width="50">
             </div>
         }
         else
         {
             <a  asp-controller="Auth" asp-action="Login" class="btn btn-outline-primary">Log In with GitHub</a>
         }
+
 </body>

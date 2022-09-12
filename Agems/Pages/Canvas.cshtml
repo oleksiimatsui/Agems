@@ -9,12 +9,17 @@
         top: 0px;
         z-index: -2;
     }
+    #width{
+        background: inherit;
+        color: inherit;
+        width: 100px;
+    }
 </style>
 <body>
         <div id="toolbar">
             <input id="color" type="color">
-            <input id="width" type="number" value="5">
-            <button id="clear">Clear</button>
+            <input id="width" type="number" value="5" min="1" class="form-control">
+            <button id="clear" class="btn btn-primary">Clear</button> <br />
             <label id="connection"></label>
         </div>
         <canvas id="drawing-board"></canvas>
