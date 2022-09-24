@@ -8,7 +8,8 @@ Scroll - Events: onScroll (f7)
 Canvas - Shared dashboard / space (c18), perhaps С11 (SignalR)  
 Project is published on Azure: https://agems20220911221851.azurewebsites.net/ (C2)  
 
-For 24.09.2022:
-Canvas issues fixed
-You can publish your paintings to telegram channel by Agems bot (B2)
-AND FINALLY the project is automatically deployed on Azure by githab actions (C3)
+For 24.09.2022:  
+Now painting is loading when you connect and the simultaneous painting bug is fixed  
+You can publish your paintings to telegram channel by Agems bot (B2)  
+AND FINALLY the project is automatically deployed on Azure by githab actions (C3)  
+
