@@ -1,4 +1,8 @@
 ﻿@page
+@using Agems.Hubs
+<head>
+   
+</head>
 <style>
     #toolbar{
         position: fixed;
@@ -20,92 +24,18 @@
             <input id="color" type="color">
             <input id="width" type="number" value="5" min="1" class="form-control">
             <button id="clear" class="btn btn-primary">Clear</button> <br />
-            <label id="connection"></label>
+            <label id="connection"></label> <br />
+            users: <label id="count"></label><br />
+            <form id="sendpic_form" asp-action="SendPic" asp-controller="Telegram" method="post">
+                <input id="imgurl" type="hidden" name="dataUrl"/>
+             </form>
+             <span class="btn btn-outline-primary" id="share_btn">Share on telegram channel</span>
         </div>
         <canvas id="drawing-board"></canvas>
+
+        <script src="~/js/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/canvas.js"></script>
+
 </body>
 
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
 
-<script>
-    const canvas = document.getElementById('drawing-board');
-    canvas.width = window.innerWidth - 10;
-    canvas.height = window.innerHeight - 10;
-
-
-    const ctx = canvas.getContext('2d');
-    let widthinput = document.getElementById("width");
-    let colorinput = document.getElementById("color");
-    let isdraw = false;
-    var oX;
-    var oY;
-    var connection = new signalR.HubConnectionBuilder()
-    .withUrl("/canvasHub")
-    .configureLogging(signalR.LogLevel.Information)
-    .build();
-
-    connection.start().then(function () {
-            document.getElementById("connection").innerHTML = "connected";
-            }).catch(function (err) {
-            document.getElementById("connection").innerHTML = "connection error";
-        });
-
-    connection.on("ReceiveDraw", function (x, y, w, c, isdraw) {
-        Draw(x, y, w, c, isdraw);
-    });
-
-    connection.on("Clear", function () {
-       clear();
-    })
-
-    function Draw(x, y, w, c, isdraw){
-        if(isdraw == false){
-            ctx.stroke();
-            ctx.beginPath();
-        }else{
-            ctx.strokeStyle = c;
-            ctx.lineWidth = w;
-            ctx.lineCap = 'round';
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
-    }
-    function clear(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-
-    document.getElementById("clear").onclick = function(){
-        connection.invoke("Clear").catch(function (err) {
-            return console.error(err.toString());
-        });
-    }
-
-    canvas.addEventListener('mousedown', (e) => {
-        isdraw = true;
-    });
-
-    canvas.addEventListener('mouseup', e => {
-        isdraw = false;
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-        let x = e.clientX;
-        let y = e.clientY;
-        let w = Number (widthinput.value);
-        let c = colorinput.value;
-        connection.invoke("SendDraw", x, y, w, c, isdraw).catch(function (err) {
-            return console.error(err.toString());
-        });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if(e.key == "["){
-            widthinput.value = parseInt( widthinput.value ) - 1;
-        }
-        if(e.key == "]"){
-             widthinput.value = parseInt( widthinput.value ) + 1;
-        }
-    })
-
-</script>
