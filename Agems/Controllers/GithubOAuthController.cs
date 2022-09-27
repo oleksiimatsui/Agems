@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Agems
 {
     [Route("[controller]/[action]")]
-    public class AuthController : Controller
+    public class GithubOAuthController : Controller
     {
         [HttpGet]
         public IActionResult Login(string returnUrl = "/")

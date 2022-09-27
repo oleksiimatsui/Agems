@@ -1,9 +1,17 @@
 using Agems;
 using Agems.Hubs;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AgemsSoundsContext>(option => option.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(options =>
 {
@@ -16,6 +24,7 @@ var app = builder.Build();
 startup.Configure(app, builder.Environment); // calling Configure method
 
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -23,6 +32,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 
 app.UseStaticFiles();
 

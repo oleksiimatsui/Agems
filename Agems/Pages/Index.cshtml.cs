@@ -7,7 +7,7 @@ using Octokit;
 using Octokit.Internal;
 namespace Agems
 {
-    public class IndexModel : PageModel
+    public class UserModel : PageModel
     {
         public string Name { get; set; }
         public string Pic { get; set; }

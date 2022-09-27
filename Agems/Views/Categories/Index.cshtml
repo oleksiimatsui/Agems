@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Agems.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<body>
+<h1>Agems Sounds</h1>
+
+<p>
+    <a asp-action="Create">Create category</a>
+</p>
+
+
+@foreach (var item in Model) {
+    <form asp-action="Details" asp-route-id="@item.Id">
+        <button style="all: inherit; display: inline-block; width: 70%">
+        <div class="card border-warning mb-3" style="width: 100%">
+            <div class="card-header">
+                @item.Name
+                <div style="float:right; z-index: 1">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                   @foreach (var sound in item.Sounds)
+                   {
+                   <span> @sound.Name </span>; 
+                   }
+                </p>
+            </div>
+        </div> 
+        </button>
+    </form>
+}
+</body>

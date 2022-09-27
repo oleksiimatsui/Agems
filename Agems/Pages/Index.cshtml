@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model UserModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -15,7 +15,8 @@
         }
         else
         {
-            <a  asp-controller="Auth" asp-action="Login" class="btn btn-outline-primary">Log In with GitHub</a>
+            <a  asp-controller="GithubOAuth" asp-action="Login" class="btn btn-outline-primary">Log In with GitHub</a><br />
+            <a  asp-controller="GoogleOAuth" asp-action="RedirectOnOAuthServer" class="btn btn-outline-primary">Log In with Google</a>
         }
     </div>
 </body>

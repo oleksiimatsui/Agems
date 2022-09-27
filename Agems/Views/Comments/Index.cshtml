@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Agems.Comment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewBag.Sound.Name</h1>
+<p>
+    @ViewBag.Sound.About
+</p>
+<audio controls>
+    <source src="~/sounds/@ViewBag.Sound.SoundPath" type="audio/mpeg">
+</audio>
+<p>
+    <a asp-action="Create">Add Comment</a>
+</p>
+
+@foreach (var item in Model) {
+<div class="card border-warning mb-3" style="width: 70%">
+    <div class="card-header">
+        @item.User.GitHub 
+        <div style="float:right; z-index: 1">
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </div>
+    </div>
+      <div class="card-body">
+        <p class="card-text"> @item.Text </p>
+      </div>
+</div>
+
+}
+
