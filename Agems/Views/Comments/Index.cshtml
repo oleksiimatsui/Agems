@@ -1,7 +1,15 @@
-﻿@model IEnumerable<Agems.Comment>
-@using Agems.Models
+﻿@using Agems.Models
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<Agems.Comment>
+
 @{
     ViewData["Title"] = "Index";
+    string Login = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        Login = @HttpContextAccessor.HttpContext.Session.GetString("GitHub");
+    }
 }
 
 <h1>@ViewBag.Sound.Name</h1>
@@ -14,7 +22,7 @@
 <p>
     Author: @ViewBag.Sound.Author
 </p>
-    @if (GitHubUser.Login != null)
+    @if (User.Identity.IsAuthenticated)
     {
         <p>
         <a asp-action="Create" asp-route-id="@ViewBag.Sound.Id">Add comment</a>
@@ -28,7 +36,7 @@
     <div class="card-header">
         @item.Author
         <div style="float:right; z-index: 1">
-            @if(GitHubUser.Login == item.Author){
+            @if(Login == item.Author){
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             }

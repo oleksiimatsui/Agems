@@ -1,7 +1,13 @@
 ﻿@model Agems.Comment
-
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Create";
+     string Login = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        Login = @HttpContextAccessor.HttpContext.Session.GetString("GitHub").ToString();
+    }
 }
 
 <h1>Create</h1>
@@ -13,6 +19,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" value="@ViewBag.SoundId" name="SoundId"/>
+            <input type="hidden" value="@Login" name="Author"/>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
                 <textarea asp-for="Text" class="form-control" ></textarea>

@@ -1,17 +1,14 @@
 ﻿namespace Agems.Models
 {
-    public static class GitHubUser
+    public class GitHubUser
     {
-        public static string Name { get; set; }
-        public static string Pic { get; set; }
+        public string Name { get; set; }
+        public string Pic { get; set; }
+        public string Login { get; set; }
 
-        public static string Login { get; set; }
-
-        public static void SetUser(string name, string pic, string login)
+        public GitHubUser (string name, string pic, string login)
         {
-            Name = name;
-            Pic = pic;
-            Login = login;
+            Login = login; Name = name; Pic = pic;
         }
     }
 }

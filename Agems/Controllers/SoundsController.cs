@@ -68,7 +68,6 @@ namespace Agems.Controllers
                 string FileName = Path.GetFileNameWithoutExtension(sound.SoundFile.FileName) + Path.GetExtension(sound.SoundFile.FileName);
                 sound.SoundPath = FileName;
                 writeFileAsync(sound.SoundFile, FileName);
-                sound.Author = GitHubUser.Login;
                 _context.Add(sound);
 
 

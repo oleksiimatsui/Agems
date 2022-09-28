@@ -1,4 +1,7 @@
-﻿@model Agems.Category
+﻿@using Agems.Models
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model Agems.Category
 
 @{
     ViewData["Title"] = "Edit";

@@ -1,10 +1,12 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Agems</title>
+
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
        <link rel="stylesheet" href="~/css/bootstrap.min.css" />
@@ -40,9 +42,17 @@
                             <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">AgemsSounds</a>
                         </li>
                         <li>
-                            @if(Models.GitHubUser.Login == null)
+                            @{
+                                Uri url = new Uri(String.Format("{0}://{1}{2}{3}", Context.Request.Scheme, Context.Request.Host, Context.Request.Path, Context.Request.QueryString));
+                                //string url = "";
+                            }
+                            @if (!User.Identity.IsAuthenticated)
                             {
-                                <a class="nav-link" asp-area="" asp-controller="GitHubOAuth" asp-action="Login">Log in</a>
+                                <a class="nav-link" asp-route-url="@url" asp-controller="GitHubOAuth" asp-action="Login">Log in</a>
+                            }else{
+                                string Login = "";
+                                Login = @HttpContextAccessor.HttpContext.Session.GetString("GitHub");
+                                <a class="nav-link" asp-route-url="@url"  asp-controller="GitHubOAuth" asp-action="Login">You logged in as @Login </a>
                             }
                         </li>
                     </ul>

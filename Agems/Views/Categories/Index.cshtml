@@ -1,5 +1,15 @@
 ﻿@using Agems.Models
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model IEnumerable<Agems.Category>
+
+@{
+    string Login = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        Login = @HttpContextAccessor.HttpContext.Session.GetString("GitHub");
+    }
+} 
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +18,7 @@
 <h1>Agems Sounds</h1>
 
 <p>
-    @if (GitHubUser.Login == "oleksiimatsui")
+    @if (Login == "oleksiimatsui")
                         {
     <a asp-action="Create">Create category</a>
                         }
@@ -21,7 +31,7 @@
         <div class="card border-warning mb-3" style="width: 100%">
             <div class="card-header">
                 @item.Name
-                   @if (GitHubUser.Login == "oleksiimatsui")
+                   @if (Login == "oleksiimatsui")
                         {
                             <div style="float:right; z-index: 1">
                                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -43,7 +43,6 @@ namespace Agems.Controllers
         {
             if (ModelState.IsValid)
             {
-                comment.Author = GitHubUser.Login;
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { Id = comment.SoundId });
