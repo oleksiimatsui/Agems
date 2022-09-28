@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Agems;
+using Agems.Models;
 
 namespace Agems.Controllers
 {
@@ -22,7 +23,7 @@ namespace Agems.Controllers
         // GET: Sounds
         public async Task<IActionResult> Index(int id)
         {
-            var agemsSoundsContext = _context.Sounds.Where(x => x.CategoryId == id).Include(s => s.Category).Include(s => s.User);
+            var agemsSoundsContext = _context.Sounds.Where(x => x.CategoryId == id).Include(s => s.Category);
             ViewBag.CategoryId = id;
             ViewBag.CategoryName = _context.Categories.Where(x => x.Id == id).First().Name;
 
@@ -39,7 +40,6 @@ namespace Agems.Controllers
 
             var sound = await _context.Sounds
                 .Include(s => s.Category)
-                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sound == null)
             {
@@ -61,14 +61,17 @@ namespace Agems.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,CategoryId,Name,SoundPath, SoundFile, About")] Sound sound)
+        public async Task<IActionResult> Create([Bind("Author,CategoryId,Name,SoundPath, SoundFile, About")] Sound sound)
         {
             if (ModelState.IsValid)
             {
                 string FileName = Path.GetFileNameWithoutExtension(sound.SoundFile.FileName) + Path.GetExtension(sound.SoundFile.FileName);
                 sound.SoundPath = FileName;
                 writeFileAsync(sound.SoundFile, FileName);
+                sound.Author = GitHubUser.Login;
                 _context.Add(sound);
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { Id = sound.CategoryId} );
             }
@@ -106,7 +109,7 @@ namespace Agems.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, UserId, CategoryId, Name, SoundPath, SoundFile, About")] Sound sound)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Author, CategoryId, Name, SoundPath, SoundFile, About")] Sound sound)
         {
             if (id != sound.Id)
             {
@@ -154,7 +157,6 @@ namespace Agems.Controllers
 
             var sound = await _context.Sounds
                 .Include(s => s.Category)
-                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (sound == null)
             {

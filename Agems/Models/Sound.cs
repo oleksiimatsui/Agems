@@ -15,7 +15,7 @@ namespace Agems
         }
 
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string Author { get; set; }
         public int CategoryId { get; set; }
         public string Name { get; set; } = null!;
         public string SoundPath { get; set; } = null!;
@@ -25,7 +25,6 @@ namespace Agems
         public string? About { get; set; }
 
         public virtual Category Category { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

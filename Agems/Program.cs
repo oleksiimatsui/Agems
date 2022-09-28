@@ -81,6 +81,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.UseAuthorization();
+app.UseAuthentication();
 app.MapRazorPages();
 app.MapHub<CanvasHub>("/canvasHub");
 app.Run();

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Agems;
+using Agems.Models;
 
 namespace Agems.Controllers
 {
@@ -21,14 +22,15 @@ namespace Agems.Controllers
         // GET: Comments
         public async Task<IActionResult> Index(int Id)
         {
-            var agemsSoundsContext = _context.Comments.Where(x => x.SoundId == Id).Include(c => c.User);
+            var agemsSoundsContext = _context.Comments.Where(x => x.SoundId == Id);
             ViewBag.Sound = _context.Sounds.Where(x => x.Id == Id).FirstOrDefault();
             return View(await agemsSoundsContext.ToListAsync());
         }
 
         // GET: Comments/Create
-        public IActionResult Create()
+        public IActionResult Create(int Id)
         {
+            ViewBag.SoundId = Id;
             return View();
         }
 
@@ -37,16 +39,16 @@ namespace Agems.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,SoundId,Text")] Comment comment)
+        public async Task<IActionResult> Create([Bind("Author,SoundId,Text")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.Author = GitHubUser.Login;
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { Id = comment.SoundId });
             }
-            ViewData["SoundId"] = new SelectList(_context.Sounds, "Id", "Id", comment.SoundId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
+            ViewBag.SoundId = comment.SoundId;
             return View(comment);
         }
 
@@ -72,7 +74,7 @@ namespace Agems.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,SoundId,Text")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Author,SoundId,Text")] Comment comment)
         {
             if (id != comment.Id)
             {
@@ -99,8 +101,6 @@ namespace Agems.Controllers
                 }
                 return RedirectToAction(nameof(Index), new { Id = comment.SoundId });
             }
-            ViewData["SoundId"] = new SelectList(_context.Sounds, "Id", "Id", comment.SoundId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", comment.UserId);
             return View(comment);
         }
 
@@ -114,7 +114,6 @@ namespace Agems.Controllers
 
             var comment = await _context.Comments
                 .Include(c => c.Sound)
-                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (comment == null)
             {

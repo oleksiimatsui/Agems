@@ -11,6 +11,7 @@ namespace Agems
     {
         public string Name { get; set; }
         public string Pic { get; set; }
+        public string Login { get; set; }
         public async Task OnGetAsync()
         {
             if (User.Identity.IsAuthenticated)
@@ -20,16 +21,13 @@ namespace Agems
 
                 var user = await github.User.Current();
 
-                if (user.Name is null)
-                {
-                    Name = user.Login;
-                }
-                else
-                {
-                    Name = user.Name;
-                }
+                Login = user.Login;
+
+                Name = user.Name;
+
                 Pic = user.AvatarUrl;
 
+                Models.GitHubUser.SetUser(Name, Pic, Login);
             }
         }
     }

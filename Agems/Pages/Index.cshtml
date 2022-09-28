@@ -9,14 +9,13 @@
         @if (User.Identity.IsAuthenticated)
         {
             <div id="accordion" class="container-fluid">
-                Welcome  @Model.Name  !!! 
+                Welcome  @Model.Login  !!! 
                 <img src = "@Model.Pic" width="50">
             </div>
         }
         else
         {
-            <a  asp-controller="GithubOAuth" asp-action="Login" class="btn btn-outline-primary">Log In with GitHub</a><br />
-            <a  asp-controller="GoogleOAuth" asp-action="RedirectOnOAuthServer" class="btn btn-outline-primary">Log In with Google</a>
+            <a  asp-controller="GithubOAuth" asp-action="Login" class="btn btn-outline-warning">Log In with GitHub</a><br />
         }
     </div>
 </body>

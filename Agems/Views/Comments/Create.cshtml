@@ -12,8 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId"/>
-            <input type="hidden" asp-for="SoundId"/>
+            <input type="hidden" value="@ViewBag.SoundId" name="SoundId"/>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
                 <input asp-for="Text" class="form-control" />
