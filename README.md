@@ -13,6 +13,6 @@ Now painting is loading when you connect and the simultaneous painting bug is fi
 You can publish your paintings to telegram channel by Agems bot (B2)  
 AND FINALLY the project is automatically deployed on Azure by githab actions (C3)  
 
-For 28.09.2022:
-AgemsSounds - a platform for sharing and discussing sounds. (C1)
-You can interact with AgemsSound using your github profile.
+For 28.09.2022:  
+AgemsSounds - a platform for sharing and discussing sounds. (C1)  
+You can interact with AgemsSound using your github profile.  
