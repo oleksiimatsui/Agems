@@ -94,10 +94,10 @@ canvas.addEventListener('mousemove', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-    if(e.key == "["){
+    if (e.key == "[" || e.key == "х"){
         widthinput.value = parseInt( widthinput.value ) - 1;
     }
-    if(e.key == "]"){
+    if (e.key == "]" || e.key == "ї"){
         widthinput.value = parseInt( widthinput.value ) + 1;
     }
 })
