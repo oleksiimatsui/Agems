@@ -23,7 +23,7 @@ namespace Agems.Controllers
         public async Task<IActionResult> Index(int Id)
         {
             var agemsSoundsContext = _context.Comments.Where(x => x.SoundId == Id);
-            ViewBag.Sound = _context.Sounds.Where(x => x.Id == Id).FirstOrDefault();
+            ViewBag.Sound = _context.Sounds.Where(x => x.Id == Id).Include(x => x.Category).FirstOrDefault();
             return View(await agemsSoundsContext.ToListAsync());
         }
 

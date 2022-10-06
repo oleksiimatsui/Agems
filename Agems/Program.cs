@@ -78,7 +78,11 @@ app.UseCookiePolicy(new CookiePolicyOptions()
 {
     MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax
 });
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true,
+ //   DefaultContentType = "text/plain"
+});
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",

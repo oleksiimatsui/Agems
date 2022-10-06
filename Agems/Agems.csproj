@@ -8,8 +8,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\img\logos\**" />
+    <Compile Remove="wwwroot\assets\img\portfolio\**" />
+    <Compile Remove="wwwroot\assets\img\team\**" />
+    <Content Remove="wwwroot\assets\img\logos\**" />
+    <Content Remove="wwwroot\assets\img\portfolio\**" />
+    <Content Remove="wwwroot\assets\img\team\**" />
+    <EmbeddedResource Remove="wwwroot\assets\img\logos\**" />
+    <EmbeddedResource Remove="wwwroot\assets\img\portfolio\**" />
+    <EmbeddedResource Remove="wwwroot\assets\img\team\**" />
+    <None Remove="wwwroot\assets\img\logos\**" />
+    <None Remove="wwwroot\assets\img\portfolio\**" />
+    <None Remove="wwwroot\assets\img\team\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Greg.gltf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Greg.gltf">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\styles.css" />
     <None Include="wwwroot\images\image.png" />
     <None Include="wwwroot\js\canvas.js" />
+    <None Include="wwwroot\js\scripts.js" />
   </ItemGroup>
 
   <ItemGroup>
