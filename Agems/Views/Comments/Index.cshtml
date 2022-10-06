@@ -71,7 +71,7 @@
                             {
                                 <a class="nav-link" asp-route-url="@url" asp-controller="GitHubOAuth" asp-action="Login">Log in</a>
                             }else{
-                                string Login = "";
+                                
                                 Login = @HttpContextAccessor.HttpContext.Session.GetString("GitHub");
                                 <a class="nav-link" asp-route-url="@url"  asp-controller="GitHubOAuth" asp-action="Login">You logged in as @Login </a>
                             }
