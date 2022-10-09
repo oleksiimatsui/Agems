@@ -15,8 +15,13 @@ builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddControllersWithViews();
+
+
+
+string connection = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
 builder.Services.AddDbContext<AgemsSoundsContext>(option => option.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")
+    connection
     ));
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(options =>

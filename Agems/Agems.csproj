@@ -5,6 +5,7 @@
 
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>35918e38-1ab5-460a-9f71-4cedf93f0be2</UserSecretsId>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

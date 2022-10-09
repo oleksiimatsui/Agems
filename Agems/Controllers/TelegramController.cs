@@ -8,6 +8,14 @@ namespace Agems.Controllers
 {
     public class TelegramController : Controller
     {
+
+        private readonly IConfiguration _config;
+
+        public TelegramController(IConfiguration config)
+        {
+            _config = config;
+        }
+
         [HttpPost]
         public async Task<IActionResult> SendPic(string dataUrl)
         {
@@ -16,7 +24,8 @@ namespace Agems.Controllers
             byte[] data = Convert.FromBase64String(base64Data);
             await System.IO.File.WriteAllBytesAsync(savePath, data);
 
-            var bot = new TelegramBotClient("5733346512:AAE9hlWfiTkIvjPHAtBY4qMpyaeV2hWCaUY");
+            string token = _config["Telegram_Token"];
+            var bot = new TelegramBotClient(token);
 
             var imageFile = System.IO.File.Open(savePath, FileMode.Open);
             await bot.SendPhotoAsync("@agems_channel", photo: imageFile);
