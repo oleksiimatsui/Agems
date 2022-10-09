@@ -23,17 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Pages\Greg.gltf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Pages\Greg.gltf">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\css\styles.css" />
     <None Include="wwwroot\images\image.png" />
     <None Include="wwwroot\js\canvas.js" />

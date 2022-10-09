@@ -92,6 +92,7 @@ namespace Agems.Controllers
                 return NotFound();
             }
             ViewBag.CategoryId = sound.CategoryId;
+            ViewBag.Categories = _context.Categories;
             return View(sound);
         }
 

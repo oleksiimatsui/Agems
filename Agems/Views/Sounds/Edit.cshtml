@@ -3,7 +3,17 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
+<head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    <style>
+    .select2-container {
+          width: 100%;
+          color: black;
+        }
+    </style>
+</head>
 <h1>Edit</h1>
 
 <h4>Sound</h4>
@@ -13,7 +23,6 @@
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="CategoryId"/>
             <input type="hidden" asp-for="Author"/>
             <input type="hidden" asp-for="SoundPath" class="form-control" />
             <div class="form-group">
@@ -32,6 +41,25 @@
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div class="ui-widget">
+                <label asp-for="Category" class="control-label"></label>
+
+                <div class="select2-container">
+                <select 
+                    asp-for="CategoryId"
+                    name="CategoryId" 
+                    id="categories"
+                    class="custom-select">
+                @foreach(var item in ViewBag.Categories){
+                    <option value=@item.Id style="color:black">@item.Name</option>
+                }
+                </select>
+                </div>
+
+                </div>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -45,3 +73,9 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+
+
+
+<script src="~/js/autocomplete.js"></script>
