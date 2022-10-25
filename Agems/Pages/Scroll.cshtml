@@ -1,41 +1,11 @@
 ﻿@page
 <style>
     .page{
-        display: block;
-        height: 3000px;
         width: 90%;
-        border: solid;
         margin: auto;
     }
 </style>
 <body>
-
 </body>
-<script>
-
-    document.addEventListener('scroll', function(e) {
-        let documentHeight = document.body.scrollHeight;
-        let currentScroll = window.scrollY + window.innerHeight;
-        if(currentScroll > documentHeight) {
-            addpage();
-        }
-    })
-
-    window.onload = function() {
-        addpage();
-    }
-
-    document.onscroll = function(){
-        let documentHeight = document.body.scrollHeight;
-        let currentScroll = window.scrollY + window.innerHeight;
-        if(currentScroll > documentHeight) {
-            addpage();
-        }
-    };
-
-    function addpage(){
-        const el = document.createElement('div');
-        el.classList.add('page');
-        document.body.appendChild(el);
-    }
+<script src="~/js/Scroll.js">
 </script>
