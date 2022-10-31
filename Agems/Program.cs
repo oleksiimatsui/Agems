@@ -7,7 +7,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
