@@ -20,10 +20,12 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddControllersWithViews();
 
 var client = new SecretClient(new Uri("https://agemsvault.vault.azure.net/"), new DefaultAzureCredential());
-var secret = client.GetSecret("DefaultConnection");
+
+string token = client.GetSecret("TelegramToken").Value.Value;
+builder.Services.AddSingleton(token);
 
 builder.Services.AddDbContext<AgemsSoundsContext>(option => option.UseSqlServer(
-    secret.Value.Value
+    client.GetSecret("DefaultConnection").Value.Value
     ));
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(options =>

@@ -9,11 +9,11 @@ namespace Agems.Controllers
     public class TelegramController : Controller
     {
 
-        private readonly IConfiguration _config;
+        private string token;
 
-        public TelegramController(IConfiguration config)
+        public TelegramController(string _token)
         {
-            _config = config;
+            token = _token;
         }
 
         [HttpPost]
@@ -24,7 +24,6 @@ namespace Agems.Controllers
             byte[] data = Convert.FromBase64String(base64Data);
             await System.IO.File.WriteAllBytesAsync(savePath, data);
 
-            string token = _config["TelegramToken"];
             var bot = new TelegramBotClient(token);
 
             var imageFile = System.IO.File.Open(savePath, FileMode.Open);
