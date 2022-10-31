@@ -7,6 +7,9 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Identity;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +19,11 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddControllersWithViews();
 
-
-
-string connection = builder.Configuration["ConnectionStrings:DefaultConnection"];
+var client = new SecretClient(new Uri("https://agemsvault.vault.azure.net/"), new DefaultAzureCredential());
+var secret = client.GetSecret("DefaultConnection");
 
 builder.Services.AddDbContext<AgemsSoundsContext>(option => option.UseSqlServer(
-    connection
+    secret.Value.Value
     ));
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(options =>
@@ -38,8 +40,8 @@ builder.Services.AddAuthentication(options =>
    .AddCookie()
    .AddOAuth("GitHub", options =>
    {
-       options.ClientId = builder.Configuration["GitClientId"];
-       options.ClientSecret = builder.Configuration["GitClientSecret"];
+       options.ClientId = client.GetSecret("GitClientId").Value.Value;
+       options.ClientSecret = client.GetSecret("GitClientSecret").Value.Value;
        options.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/github-oauth");
        options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
        options.TokenEndpoint = "https://github.com/login/oauth/access_token";
