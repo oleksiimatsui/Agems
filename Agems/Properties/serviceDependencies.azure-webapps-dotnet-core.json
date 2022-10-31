@@ -5,12 +5,6 @@
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/agems/databases/AgemsSounds",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection"
-    },
-    "secrets1": {
-      "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/Agemsvault",
-      "type": "secrets.keyVault",
-      "connectionId": "VaultUri"
     }
   }
 }

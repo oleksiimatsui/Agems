@@ -24,7 +24,7 @@ namespace Agems.Controllers
             byte[] data = Convert.FromBase64String(base64Data);
             await System.IO.File.WriteAllBytesAsync(savePath, data);
 
-            string token = _config["Telegram_Token"];
+            string token = _config["TelegramToken"];
             var bot = new TelegramBotClient(token);
 
             var imageFile = System.IO.File.Open(savePath, FileMode.Open);

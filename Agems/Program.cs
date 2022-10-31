@@ -38,8 +38,8 @@ builder.Services.AddAuthentication(options =>
    .AddCookie()
    .AddOAuth("GitHub", options =>
    {
-       options.ClientId = builder.Configuration["GitHub:ClientId"];
-       options.ClientSecret = builder.Configuration["GitHub:ClientSecret"];
+       options.ClientId = builder.Configuration["GitClientId"];
+       options.ClientSecret = builder.Configuration["GitClientSecret"];
        options.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/github-oauth");
        options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
        options.TokenEndpoint = "https://github.com/login/oauth/access_token";
